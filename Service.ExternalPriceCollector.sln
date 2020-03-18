@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Client", "03. Client", "{655225E4-2F4C-4D07-82FB-7B4947EF5A7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Solution Items", "01. Solution Items", "{85EB7950-61F2-4B83-9F3E-F74ECCE0D3C8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
+		format.appsettings.json = format.appsettings.json
+		.github\workflows\release-service.yml = .github\workflows\release-service.yml
+		.github\workflows\validate-commit.yml = .github\workflows\validate-commit.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Tests", "02. Tests", "{7F3DBAA2-139B-401D-A33F-1409A9BB4DE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalPriceCollector", "src\ExternalPriceCollector\ExternalPriceCollector.csproj", "{D9AE04E2-3801-499E-8E95-6F2B2B4BFB41}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalPriceCollector.Client", "src\ExternalPriceCollector.Client\ExternalPriceCollector.Client.csproj", "{9B71FE5F-2279-411C-9920-4159E3635E36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalPriceCollector.TestClient", "tests\ExternalPriceCollector.TestClient\ExternalPriceCollector.TestClient.csproj", "{E68690DB-606F-49CA-9BAB-DF5B5EA2E8F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalPriceCollector.Protos", "src\ExternalPriceCollector.Contract\ExternalPriceCollector.Protos.csproj", "{48E5261D-8A27-4496-88F1-EF76BE4279DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9AE04E2-3801-499E-8E95-6F2B2B4BFB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9AE04E2-3801-499E-8E95-6F2B2B4BFB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9AE04E2-3801-499E-8E95-6F2B2B4BFB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9AE04E2-3801-499E-8E95-6F2B2B4BFB41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B71FE5F-2279-411C-9920-4159E3635E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B71FE5F-2279-411C-9920-4159E3635E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B71FE5F-2279-411C-9920-4159E3635E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B71FE5F-2279-411C-9920-4159E3635E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E68690DB-606F-49CA-9BAB-DF5B5EA2E8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E68690DB-606F-49CA-9BAB-DF5B5EA2E8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E68690DB-606F-49CA-9BAB-DF5B5EA2E8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E68690DB-606F-49CA-9BAB-DF5B5EA2E8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E5261D-8A27-4496-88F1-EF76BE4279DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E5261D-8A27-4496-88F1-EF76BE4279DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E5261D-8A27-4496-88F1-EF76BE4279DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E5261D-8A27-4496-88F1-EF76BE4279DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B71FE5F-2279-411C-9920-4159E3635E36} = {655225E4-2F4C-4D07-82FB-7B4947EF5A7A}
+		{E68690DB-606F-49CA-9BAB-DF5B5EA2E8F0} = {7F3DBAA2-139B-401D-A33F-1409A9BB4DE8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {196C39E2-2F2E-46AB-BA2A-0D2E7E171B5A}
+	EndGlobalSection
+EndGlobal

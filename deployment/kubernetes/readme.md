@@ -1,0 +1,1 @@
+Copy these files to https://github.com/SC-Poc/kubernetes-swisschain/tree/master/Kubernetes/03.Pods/01.Services. Update service namespace if necessary. Add `RemoteSettingsUrl` to the service secrets https://github.com/SC-Poc/kubernetes-swisschain-secret/tree/master/03.Pods/01.Services
