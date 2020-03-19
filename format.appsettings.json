@@ -5,6 +5,11 @@
     }
   },
   "ApiService": {
-    "GasAmountReservePercentage": "${example-value}" 
-  } 
+    "GasAmountReservePercentage": "${example-value}"
+  },
+  "QuoteSubscriber": {
+    "ConnectionString": "${LiquidityRabbitMQConnectionString}",
+    "Exchange": "lykke.exchange.ccxws.quotes",
+    "QuerySuffix": "collector"
+  }
 }

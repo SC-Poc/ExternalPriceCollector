@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using ExternalPriceCollector.Configuration;
 using ExternalPriceCollector.GrpcServices;
+using ExternalPriceCollector.Rabbit.Subscribers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,10 @@ namespace ExternalPriceCollector
 
         protected override void ConfigureContainerExt(ContainerBuilder builder)
         {
-            
+            builder.RegisterType<PriceSubscriber>()
+                .As<IStartable>()
+                .AutoActivate()
+                .SingleInstance();
         }
     }
 }
