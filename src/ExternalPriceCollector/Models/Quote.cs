@@ -9,17 +9,25 @@ namespace ExternalPriceCollector.Models
     public class Quote
     {
         [Key]
-        [Column("id")]
+        [Column("Id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonIgnore]
         public long Id { get; set; }
 
-        [Column("Source", TypeName = "varchar(64)")]
+        [NotMapped]
         public string Source { get; set; }
 
-        [Column("Asset", TypeName = "varchar(64)")]
+        [Column("SourceId")]
+        [JsonIgnore]
+        public int SourceId { get ; set; }
+
+        [NotMapped]
         public string Asset { get; set; }
-        
+
+        [Column("AssetPairId")]
+        [JsonIgnore]
+        public int AssetPairId { get; set; }
+
         [Column("Timestamp")]
         public DateTime Timestamp { get; set; }
         

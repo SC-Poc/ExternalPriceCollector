@@ -64,6 +64,9 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
 
         private async Task ProcessMessageAsync(Quote quote)
         {
+            quote.SourceId = quote.Source.GetHashCode();
+            quote.AssetPairId = quote.Asset.GetHashCode();
+
             lock (_sync)
             {
                 _quoteMemoryCache.Add(quote);

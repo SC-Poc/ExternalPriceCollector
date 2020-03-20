@@ -16,17 +16,17 @@ namespace ExternalPriceCollector.Migrations
                 schema: "prices",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Source = table.Column<string>(type: "varchar(64)", nullable: true),
-                    Asset = table.Column<string>(type: "varchar(64)", nullable: true),
+                    SourceId = table.Column<int>(nullable: false),
+                    AssetPairId = table.Column<int>(nullable: false),
                     Timestamp = table.Column<DateTime>(nullable: false),
                     Bid = table.Column<decimal>(nullable: false),
                     Ask = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Quotes", x => x.id);
+                    table.PrimaryKey("PK_Quotes", x => x.Id);
                 });
         }
 
