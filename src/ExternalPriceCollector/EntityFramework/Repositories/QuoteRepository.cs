@@ -36,6 +36,15 @@ namespace ExternalPriceCollector.EntityFramework.Repositories
             }
         }
 
+        public async Task InsertRangeAsync(IEnumerable<Quote> quotes)
+        {
+            using (var context = _connectionFactory.CreateDataContext())
+            {
+                context.Quotes.AddRange(quotes);
+
+                await context.SaveChangesAsync();
+            }
+        }
 
         public async Task DeleteAsync(Quote quote)
         {

@@ -20,9 +20,6 @@ namespace ExternalPriceCollector.GrpcServices
 
         public override Task<IsAliveResponce> IsAlive(IsAliveRequest request, ServerCallContext context)
         {
-            _logger.LogInformation("Hello {who}! How are {name}?", "world", "alex");
-            _logger.LogInformation("config: {conf}", _config.ApiService.GasAmountReservePercentage);
-
             var result = new IsAliveResponce
             {
                 Name = ApplicationInformation.AppName,

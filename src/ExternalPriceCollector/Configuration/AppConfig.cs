@@ -11,7 +11,7 @@
 
     public class ApiService
     {
-        public string GasAmountReservePercentage { get; set; }
+        public int QuoteBatchSize { get; set; }
     }
 
     public class RabbitMqSubscriber

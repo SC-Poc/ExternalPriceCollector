@@ -37,6 +37,8 @@ namespace ExternalPriceCollector.EntityFramework.Context
         {
             modelBuilder.HasDefaultSchema(Schema);
 
+            modelBuilder.UseIdentityColumns();
+
             //SetupAssetPairs(modelBuilder);
         }
 

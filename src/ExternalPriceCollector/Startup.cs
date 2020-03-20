@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using ExternalPriceCollector.Cache;
 using ExternalPriceCollector.Configuration;
 using ExternalPriceCollector.EntityFramework.Context;
 using ExternalPriceCollector.EntityFramework.Repositories;
 using ExternalPriceCollector.GrpcServices;
+using ExternalPriceCollector.Models;
 using ExternalPriceCollector.Rabbit.Subscribers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,7 @@ namespace ExternalPriceCollector
 
         protected override void ConfigureContainerExt(ContainerBuilder builder)
         {
-            builder.RegisterType<PriceSubscriber>()
+            builder.RegisterType<QuoteSubscriber>()
                 .As<IStartable>()
                 .AutoActivate()
                 .SingleInstance();
@@ -39,6 +41,9 @@ namespace ExternalPriceCollector
                 .SingleInstance();
 
             builder.RegisterType<QuoteRepository>()
+                .SingleInstance();
+
+            builder.RegisterType<QuoteMemoryCache<Quote>>()
                 .SingleInstance();
         }
 

@@ -1,30 +1,37 @@
 ﻿using System.Collections.Generic;
-using ExternalPriceCollector.Models;
 
 namespace ExternalPriceCollector.Cache
 {
-    public class QuoteMemoryCache
+    public class QuoteMemoryCache<T>
     {
         private object _sync = new object();
-        private List<Quote> cache = new List<Quote>();
+        private List<T> cache = new List<T>();
 
-        public void Add(Quote quote)
+        public void Add(T obj)
         {
             lock (_sync)
             {
-                cache.Add(quote);
+                cache.Add(obj);
             }
         }
 
-        public IList<Quote> GetAllAndClear()
+        public IList<T> GetAllAndClear()
         {
             lock(_sync)
             {
                 var all = cache;
 
-                cache = new List<Quote>();
+                cache = new List<T>();
 
                 return all;
+            }
+        }
+
+        public int GetCount()
+        {
+            lock (_sync)
+            {
+                return cache.Count;
             }
         }
     }

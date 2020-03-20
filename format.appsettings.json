@@ -5,7 +5,7 @@
     }
   },
   "ApiService": {
-    "GasAmountReservePercentage": "${example-value}"
+    "QuoteBatchSize": "1000"
   },
   "QuoteSubscriber": {
     "ConnectionString": "${LiquidityRabbitMQConnectionString}",
