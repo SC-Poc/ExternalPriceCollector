@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ExternalPriceCollector.Configuration;
-using ExternalPriceCollector.Rabbit.Models;
+using ExternalPriceCollector.Models;
 using Lykke.RabbitMqBroker;
 using Lykke.RabbitMqBroker.Subscriber;
 using Microsoft.Extensions.Logging;
@@ -29,7 +29,7 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
             {
                 ConnectionString = _config.QuoteSubscriber.ConnectionString,
                 ExchangeName = _config.QuoteSubscriber.Exchange,
-                QueueName = $"{_config.QuoteSubscriber.Exchange}.{_config.QuoteSubscriber.QuerySuffix}",
+                QueueName = $"{_config.QuoteSubscriber.Exchange}.{_config.QuoteSubscriber.QueueSuffix}",
                 DeadLetterExchangeName = null,
                 IsDurable = false
             };

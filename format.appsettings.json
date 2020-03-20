@@ -10,6 +10,9 @@
   "QuoteSubscriber": {
     "ConnectionString": "${LiquidityRabbitMQConnectionString}",
     "Exchange": "lykke.exchange.ccxws.quotes",
-    "QuerySuffix": "collector"
-  }
+    "QueueSuffix": "collector"
+  },
+  "DbSettings": {
+    "ConnectionString": "DefaultEndpointsProtocol=https;AccountName=swisspaysettings;AccountKey=cgy6rC3uR+UX6TMJticOovBO+f+XxY72rAiccWgNahtJy5FTH/y9VPAjY7JqxrLMwTU0zD8dM/xLeGJ1gIBoyQ==;EndpointSuffix=core.windows.net"
+  } 
 }
