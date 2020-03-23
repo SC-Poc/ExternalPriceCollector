@@ -2,16 +2,22 @@
 {
     public class AppConfig
     {
-        public ApiService ApiService { get; set; }
+        public Main Main { get; set; }
 
         public RabbitMqSubscriber QuoteSubscriber { get; set; }
 
         public DbSettings DbSettings { get; set; }
+
+        public AzureStorage AzureStorage { get; set; }
     }
 
-    public class ApiService
+    public class Main
     {
         public int QuoteBatchSize { get; set; }
+
+        public bool WriteToDB { get; set; }
+
+        public bool WriteToBlob { get; set; }
     }
 
     public class RabbitMqSubscriber
@@ -26,5 +32,10 @@
     public class DbSettings
     {
         public string DataConnectionString { get; set; }
+    }
+
+    public class AzureStorage
+    {
+        public string ConnectionString { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
+using ExternalPriceCollector.Azure;
 using ExternalPriceCollector.Cache;
 using ExternalPriceCollector.Configuration;
 using ExternalPriceCollector.EntityFramework.Context;
@@ -44,6 +46,11 @@ namespace ExternalPriceCollector
                 .SingleInstance();
 
             builder.RegisterType<QuoteMemoryCache<Quote>>()
+                .SingleInstance();
+
+            var azureBlobStorage = AzureBlobStorage.Create(Config.AzureStorage.ConnectionString, TimeSpan.FromMinutes(1));
+            builder.RegisterInstance(azureBlobStorage)
+                .As<IBlobStorage>()
                 .SingleInstance();
         }
 

@@ -4,8 +4,10 @@
       "Default": "Trace"
     }
   },
-  "ApiService": {
-    "QuoteBatchSize": "1000"
+  "Main": {
+    "QuoteBatchSize": 1000,
+    "WriteToDB": true,
+    "WriteToBlob": true
   },
   "QuoteSubscriber": {
     "ConnectionString": "${LiquidityRabbitMQConnectionString}",
@@ -14,5 +16,8 @@
   },
   "DbSettings": {
     "DataConnectionString": "${DataCollectionPostgresConnectionString}"
-  } 
+  },
+  "AzureStorage": {
+    "ConnectionString": "${DataCollectionAzureBlobConnectionString}"
+  }
 }

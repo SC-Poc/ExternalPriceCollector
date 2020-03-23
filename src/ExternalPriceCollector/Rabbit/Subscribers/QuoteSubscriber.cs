@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Common;
+using ExternalPriceCollector.Azure;
 using ExternalPriceCollector.Cache;
 using ExternalPriceCollector.Configuration;
 using ExternalPriceCollector.EntityFramework.Repositories;
@@ -20,18 +24,24 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
 
         private QuoteRepository _quoteRepository;
 
+        private IBlobStorage _blobStorage;
+
         private QuoteMemoryCache<Quote> _quoteMemoryCache;
 
         private object _sync = new object();
 
         private readonly ILogger<QuoteSubscriber> _logger;
 
-        public QuoteSubscriber(QuoteRepository quoteRepository, QuoteMemoryCache<Quote> quoteMemoryCache, AppConfig config, ILogger<QuoteSubscriber> logger)
+        private readonly string _container;
+
+        public QuoteSubscriber(QuoteRepository quoteRepository, IBlobStorage blobStorage, QuoteMemoryCache<Quote> quoteMemoryCache, AppConfig config, ILogger<QuoteSubscriber> logger)
         {
             _quoteRepository = quoteRepository;
+            _blobStorage = blobStorage;
             _quoteMemoryCache = quoteMemoryCache;
             _config = config;
             _logger = logger;
+            _container = DateTime.UtcNow.ToIsoDateTime().Replace(":", "-").Replace(" ", "t");
         }
 
         public void Start()
@@ -53,6 +63,8 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
                 .Subscribe(ProcessMessageAsync)
                 .CreateDefaultBinding()
                 .Start();
+
+            _blobStorage.CreateContainerIfNotExistsAsync(_container).GetAwaiter().GetResult();
         }
 
         public void Dispose()
@@ -76,20 +88,59 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
 
                 var count = _quoteMemoryCache.GetCount();
 
-                if (count >= _config.ApiService.QuoteBatchSize)
+                if (count >= _config.Main.QuoteBatchSize)
                 {
                     var quotes = _quoteMemoryCache.GetAllAndClear();
 
-                    var stopwatch = new Stopwatch();
+                    if (_config.Main.WriteToDB)
+                        WriteToDB(quotes);
 
-                    stopwatch.Start();
-
-                    _quoteRepository.InsertRangeAsync(quotes).GetAwaiter().GetResult();
-
-                    stopwatch.Stop();
-
-                    _logger.LogInformation("Added to DB {quotesCount} quotes, took {seconds} seconds.", quotes.Count, stopwatch.Elapsed.TotalSeconds);
+                    if (_config.Main.WriteToBlob)
+                        WriteToBlob(quotes);
                 }
+            }
+        }
+
+        private void WriteToDB(IEnumerable<Quote> quotes)
+        {
+            try
+            {
+                var stopwatch = new Stopwatch();
+
+                stopwatch.Start();
+
+                _quoteRepository.InsertRangeAsync(quotes).GetAwaiter().GetResult();
+
+                stopwatch.Stop();
+
+                _logger.LogInformation("Added to DB {quotesCount} quotes, took {seconds} seconds.", quotes.Count(), stopwatch.Elapsed.TotalSeconds);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Something went wrong while saving to Postgres.");
+            }
+        }
+
+        private void WriteToBlob(IEnumerable<Quote> quotes)
+        {
+            try
+            {
+                var data = string.Join(Environment.NewLine,
+                    quotes.Select(x => $"{x.Source};{x.Asset};{x.Bid};{x.Ask};{x.Timestamp.ToIsoDateTime()}"));
+
+                var stopwatch = new Stopwatch();
+
+                stopwatch.Start();
+
+                _blobStorage.SaveBlobAsync(_container, _container, data.ToStream()).GetAwaiter().GetResult();
+
+                stopwatch.Stop();
+
+                _logger.LogInformation("Added to Blob {quotesCount} quotes, took {seconds} seconds.", quotes.Count(), stopwatch.Elapsed.TotalSeconds);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Something went wrong while saving to Azure Blob.");
             }
         }
     }
