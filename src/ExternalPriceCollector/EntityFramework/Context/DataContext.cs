@@ -21,6 +21,8 @@ namespace ExternalPriceCollector.EntityFramework.Context
 
         internal DbSet<Quote> Quotes { get; set; }
 
+        internal DbSet<Trade> Trades { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (_connectionString == null)
@@ -36,25 +38,7 @@ namespace ExternalPriceCollector.EntityFramework.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema(Schema);
-
             modelBuilder.UseIdentityColumns();
-
-            //SetupAssetPairs(modelBuilder);
         }
-
-        //private static void SetupAssetPairs(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<AssetPairEntity>()
-        //        .HasOne<AssetEntity>()
-        //        .WithMany()
-        //        .HasForeignKey(o => o.BaseAssetId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-        //    modelBuilder.Entity<AssetPairEntity>()
-        //        .HasOne<AssetEntity>()
-        //        .WithMany()
-        //        .HasForeignKey(o => o.QuotingAssetId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-        //}
     }
 }

@@ -26,6 +26,8 @@
 
         public string Exchange { get; set; }
 
+        public string ExchangeTrade { get; set; }
+
         public string QueueSuffix { get; set; }
     }
 

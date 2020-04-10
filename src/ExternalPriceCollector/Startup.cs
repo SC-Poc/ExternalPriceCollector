@@ -37,6 +37,11 @@ namespace ExternalPriceCollector
                 .AutoActivate()
                 .SingleInstance();
 
+            builder.RegisterType<TradeSubscriber>()
+                .As<IStartable>()
+                .AutoActivate()
+                .SingleInstance();
+
             builder.RegisterType<ConnectionFactory>()
                 .AsSelf()
                 .WithParameter(TypedParameter.From(Config.DbSettings.DataConnectionString))

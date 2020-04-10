@@ -92,8 +92,8 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
                 {
                     var quotes = _quoteMemoryCache.GetAllAndClear();
 
-                    if (_config.Main.WriteToDB)
-                        WriteToDB(quotes);
+                    //if (_config.Main.WriteToDB)
+                    //    WriteToDB(quotes);
 
                     if (_config.Main.WriteToBlob)
                         WriteToBlob(quotes);
@@ -144,5 +144,4 @@ namespace ExternalPriceCollector.Rabbit.Subscribers
             }
         }
     }
-    
 }

@@ -37,4 +37,8 @@ namespace ExternalPriceCollector.Models
         [Column("Ask")]
         public decimal Ask { get; set; }
     }
+
+
+
+    // {"exchange":"HitBTC","quote":"BTC","base":"ZRX","tradeId":819426505,"unix":1586503025922,"side":"buy","price":"0.000024665","amount":"584.9"}
 }
